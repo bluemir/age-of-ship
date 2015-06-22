@@ -17,7 +17,7 @@
     "tests"
   ],
   "dependencies": {
-    "q": "~2.0.2",
+    "q": "1",
     "requirejs": "~2.1.18",
     "three.js": "~0.71.0"
   }
