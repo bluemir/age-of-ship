@@ -5,7 +5,7 @@ define(["scene", "three"], function(scene, T){
 		var material = new THREE.MeshPhongMaterial({color: 0x00ff00});
 		this.mesh = new T.Mesh(geometry, material);
 
-		this.mesh.rotation.x = 1;
+		this.mesh.position.z = 1;
 
 		scene.add(this.mesh);
 	}
