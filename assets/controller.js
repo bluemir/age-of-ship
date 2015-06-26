@@ -7,23 +7,17 @@ define(["three", "view", "keys", "event"], function(T, view, keys, event){
 		}
 		var isMoving = false;
 		if (keys.forward.isPressed) {
-			console.log("forward");
 			target.forward(dt);
 			isMoving = true;
 		} 
 		if (keys.backward.isPressed) {
-			console.log("backward");
 			target.backward(dt);
 			isMoving = true;
 		}
 		if (keys.right.isPressed) {
-			console.log("right");
-			target.mesh.position.x += 1;
 			isMoving = true;
 		}
 		if (keys.left.isPressed) {
-			console.log("left");
-			target.mesh.position.x -= 1;
 			isMoving = true;
 		}
 
