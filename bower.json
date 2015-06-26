@@ -19,6 +19,8 @@
   "dependencies": {
     "q": "1",
     "requirejs": "~2.1.18",
-    "three.js": "~0.71.0"
+    "three.js": "~0.71.0",
+    "Keypress": "~2.1.0",
+    "eventemitter2": "~0.4.14"
   }
 }

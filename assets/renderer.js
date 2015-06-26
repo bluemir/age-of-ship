@@ -1,4 +1,4 @@
-define(["utils", "three"], function(utils, T){
+define(["utils", "three", "event"], function(utils, T){
 	var canvas = utils.$("#game");
 
 	var renderer = new T.WebGLRenderer({canvas : canvas, antialias: true, alpha: true});

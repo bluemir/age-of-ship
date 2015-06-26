@@ -1,4 +1,4 @@
-define(["scene", "renderer"], function (scene, renderer) {
+define(["scene", "renderer", "event"], function (scene, renderer, event) {
 	var camera;
 
 	function renderLoop(){
@@ -9,6 +9,7 @@ define(["scene", "renderer"], function (scene, renderer) {
 			prevTime = currentTime;
 
 			renderer.render(scene, camera);
+			event.emit("app.render", dt);
 			requestAnimationFrame(loop);
 		};	
 		loop();
