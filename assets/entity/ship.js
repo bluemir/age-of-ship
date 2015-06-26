@@ -8,6 +8,22 @@ define(["scene", "three"], function(scene, T){
 		this.mesh.position.z = 1;
 
 		scene.add(this.mesh);
+
+		this.stat = {
+			speed : 0.005
+		};
+	}
+	Ship.prototype.forward = function(dt) {
+		this.mesh.position.y += dt * this.stat.speed;
+	}
+	Ship.prototype.backward = function(dt) {
+		this.mesh.position.y -= dt * this.stat.speed;
+	}
+	Ship.prototype.turnRight = function(dt) {
+		console.log("ship turn Right");
+	}
+	Ship.prototype.turnLeft = function(dt) {
+		console.log("ship turn Left");
 	}
 	return Ship;
 });

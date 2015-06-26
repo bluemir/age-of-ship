@@ -10,6 +10,8 @@ define(["scene", "renderer", "event"], function (scene, renderer, event) {
 
 			renderer.render(scene, camera);
 			event.emit("app.render", dt);
+			event.emit("app.frame", dt);
+
 			requestAnimationFrame(loop);
 		};	
 		loop();
