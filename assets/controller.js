@@ -15,10 +15,10 @@ define(["three", "view", "keys", "event"], function(T, view, keys, event){
 			isMoving = true;
 		}
 		if (keys.right.isPressed) {
-			isMoving = true;
+			target.turnRight(dt);
 		}
 		if (keys.left.isPressed) {
-			isMoving = true;
+			target.turnLeft(dt);
 		}
 
 
