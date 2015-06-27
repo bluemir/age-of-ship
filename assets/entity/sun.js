@@ -18,7 +18,15 @@ define(["scene", "three", "event"], function(scene, T, event){
 		event.on("app.frame", function(dt){
 			that.animateTime = (that.animateTime + dt) % 15000;
 			var theta = that.animateTime/15000 * 2 * Math.PI;
-			that.mesh.position.set(Math.sin(theta)* 100, 0, Math.cos(theta) * 100)
+
+			if(theta > Math.PI) {
+				directional.color.setHSL(0, 0, 0)
+				ambient.color.setHSL(0.1, 0.3, (0.03 + Math.sin(theta)/40));
+			} else {
+				directional.color.setHSL(0, 0, Math.sin(theta))
+				ambient.color.setHSL(0.1, 0.3, 0.03);
+			}
+			that.mesh.position.set(Math.cos(theta)* 100, 0, Math.sin(theta) * 100)
 		});
 		
 	}
