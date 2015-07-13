@@ -5,14 +5,11 @@ define(["three", "view", "keys", "event"], function(T, view, keys, event){
 		if (target == null){
 			return;
 		}
-		var isMoving = false;
 		if (keys.forward.isPressed) {
 			target.forward(dt);
-			isMoving = true;
 		} 
 		if (keys.backward.isPressed) {
 			target.backward(dt);
-			isMoving = true;
 		}
 		if (keys.right.isPressed) {
 			target.turnRight(dt);
@@ -20,20 +17,15 @@ define(["three", "view", "keys", "event"], function(T, view, keys, event){
 		if (keys.left.isPressed) {
 			target.turnLeft(dt);
 		}
-
-
-		if(isMoving) {
-			event.emit("user.move", target.mesh.position);
-		}
 	});
 	return {
 		control : function(entity){
 			target = entity;
-			var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+			var camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 			entity.mesh.add(camera)
-			camera.position.z = 5;
-			camera.position.y = -5;
+			camera.position.z = 15;
+			camera.position.y = -25;
 			camera.lookAt(new T.Vector3(0,0,0));
 
 			view.setCamera(camera);

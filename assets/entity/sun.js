@@ -9,7 +9,7 @@ define(["scene", "three", "event"], function(scene, T, event){
 		this.mesh = new T.Object3D();
 		this.mesh.add(ambient);
 		this.mesh.add(directional);
-		
+
 		scene.add(this.mesh);
 
 		this.animateTime = 0;
@@ -28,7 +28,6 @@ define(["scene", "three", "event"], function(scene, T, event){
 			}
 			that.mesh.position.set(Math.cos(theta)* 100, 0, Math.sin(theta) * 100)
 		});
-		
 	}
 	return Sun;
 })

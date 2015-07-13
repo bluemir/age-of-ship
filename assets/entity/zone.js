@@ -1,23 +1,26 @@
 define(["event"], function(event){
+	var __ = {
+		block : 50
+	}
 	function Zone(){
-		var current = {
+		this.current = {
 			x :0,
 			y :0
 		};
-		event.on("user.move", function(pos){
-			var isChanged = false;
-			if (Math.floor(pos.x / 50) != current.x){
-				current.x = Math.floor(pos.x / 50);
-				isChanged = true;
-			}
-			if (Math.floor(pos.y / 50) != current.y){
-				current.y = Math.floor(pos.y / 50);
-				isChanged = true;
-			}
-			if (isChanged){
-				event.emit("zone.changed", current);
-			}
-		});
+	}
+	Zone.prototype.trace = function(pos) {
+		var isChanged = false;
+		if (Math.floor(pos.x / __.block) != this.current.x){
+			this.current.x = Math.floor(pos.x / __.block);
+			isChanged = true;
+		}
+		if (Math.floor(pos.y / __.block) != this.current.y){
+			this.current.y = Math.floor(pos.y / __.block);
+			isChanged = true;
+		}
+		if (isChanged){
+			event.emit("zone.changed", this.current);
+		}
 	}
 	return Zone;
 });

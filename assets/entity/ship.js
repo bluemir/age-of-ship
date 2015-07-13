@@ -19,6 +19,8 @@ define(["scene", "three", "event"], function(scene, T, event){
 		event.on("app.frame", function(dt){
 			that.mesh.position.x += dt * that.stat.speed * that.stat.heading.x;
 			that.mesh.position.y += dt * that.stat.speed * that.stat.heading.y;
+			//TODO detach
+			event.emit("user.move", that.mesh.position);
 		});
 	}
 	Ship.prototype.forward = function(dt) {
