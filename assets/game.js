@@ -2,9 +2,9 @@ require(["entity/ship", "entity/sea","view", "controller", "entity/sun"], functi
 	var ship = new Ship();
 	var sea = new Sea();
 	var sun = new Sun();
-	
+
 	controller.control(ship);
-	
+
 	view.startRender();
 });
 

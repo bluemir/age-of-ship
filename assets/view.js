@@ -13,7 +13,7 @@ define(["scene", "renderer", "event"], function (scene, renderer, event) {
 			event.emit("app.frame", dt);
 
 			requestAnimationFrame(loop);
-		};	
+		};
 		loop();
 	}
 

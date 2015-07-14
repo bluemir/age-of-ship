@@ -4,7 +4,7 @@ define(["utils", "three", "event"], function(utils, T){
 	var renderer = new T.WebGLRenderer({canvas : canvas, antialias: true, alpha: true});
 
 	renderer.setSize(window.innerWidth, window.innerHeight);
-	
+
 	renderer.gammaInput = true;
 	renderer.gammaOutput = true;
 
@@ -13,5 +13,5 @@ define(["utils", "three", "event"], function(utils, T){
 			renderer.render(scene, camera);
 		}
 	}
-	
+
 });

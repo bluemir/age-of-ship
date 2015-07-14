@@ -7,7 +7,7 @@ define(["three", "view", "keys", "event"], function(T, view, keys, event){
 		}
 		if (keys.forward.isPressed) {
 			target.forward(dt);
-		} 
+		}
 		if (keys.backward.isPressed) {
 			target.backward(dt);
 		}
