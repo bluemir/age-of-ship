@@ -29,5 +29,15 @@ define(["keypress"], function(keypress){
 			}
 		});
 	}
+
+	function FunctionKey(key){
+		listener.register_combo({
+			keys: key,
+			on_keydown: function(){
+				console.log(key);
+			},
+			prevent_repeat: true
+		});
+	}
 	return keys;
 });
