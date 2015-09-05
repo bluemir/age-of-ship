@@ -1,4 +1,4 @@
-define(["scene", "three", "event"], function(scene, T, event){
+define(["scene", "three", "event", "entity/ship/engine"], function(scene, T, event, Engine){
 	function Ship(){
 		//TODO load from loader
 		var geometry = new THREE.BoxGeometry(1, 1, 1);
@@ -11,41 +11,44 @@ define(["scene", "three", "event"], function(scene, T, event){
 
 		this.stat = {
 			speed : 0,
-			turn : 0.05,
+			weight : 100,
 			heading : new T.Vector3(0, 1, 0)
 		};
+		this.spec = {
+			weight : 10,
+			cargo : 1,
+			turn : 0.05,
+			resistance : 100
+		};
+		this.engine = new Engine();
 
-		var that = this;
-		event.on("app.frame", function(dt){
-			that.mesh.position.x += dt * that.stat.speed * that.stat.heading.x;
-			that.mesh.position.y += dt * that.stat.speed * that.stat.heading.y;
-			//TODO detach
-			event.emit("user.move", that.mesh.position);
-		});
+		event.on("app.frame", this.onFrame.bind(this));
 	}
 	Ship.prototype.forward = function(dt) {
-		this.stat.speed += dt * 0.000005;
-		if(this.stat.speed > 0.005) {
-			this.stat.speed = 0.005;
-		}
+		this.engine.powerUp(dt);
 	}
 	Ship.prototype.backward = function(dt) {
-		this.stat.speed -= dt * 0.000005;
-		if(this.stat.speed < 0) {
-			this.stat.speed = 0;
-		}
+		this.engine.powerDown(dt);
 	}
 	Ship.prototype.turnRight = function(dt) {
-		var amount = dt * this.stat.turn * Math.PI /100;
+		var amount = dt * this.spec.turn * Math.PI /100;
 
 		this.stat.heading.applyAxisAngle(new T.Vector3(0, 0, 1), -amount);
 		this.mesh.rotateOnAxis(new T.Vector3(0, 0, 1), -amount);
 	}
 	Ship.prototype.turnLeft = function(dt) {
-		var amount = dt * this.stat.turn * Math.PI /100;
+		var amount = dt * this.spec.turn * Math.PI /100;
 
 		this.stat.heading.applyAxisAngle(new T.Vector3(0, 0, 1), amount);
 		this.mesh.rotateOnAxis(new T.Vector3(0, 0, 1), amount);
+	}
+	Ship.prototype.onFrame = function(dt){
+		this.stat.speed += (this.engine.stat.power - this.spec.resistance * this.stat.speed) / this.stat.weight * dt/ 1000;
+
+		this.mesh.position.x += dt * this.stat.speed * this.stat.heading.x;
+		this.mesh.position.y += dt * this.stat.speed * this.stat.heading.y;
+		//TODO detach
+		event.emit("user.move", this.mesh.position);
 	}
 	return Ship;
 });
