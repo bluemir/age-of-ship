@@ -1,4 +1,4 @@
-define(["utils", "three", "event"], function(utils, T){
+define(["utils", "three", "event"], function(utils, T, event){
 	var canvas = utils.$("#game");
 
 	var renderer = new T.WebGLRenderer({canvas : canvas, antialias: true, alpha: true});
@@ -7,6 +7,10 @@ define(["utils", "three", "event"], function(utils, T){
 
 	renderer.gammaInput = true;
 	renderer.gammaOutput = true;
+
+	event.on("window.resize", function(){
+		renderer.setSize(window.innerWidth, window.innerHeight);
+	});
 
 	return {
 		render : function(scene, camera) {

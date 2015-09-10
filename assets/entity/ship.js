@@ -1,7 +1,7 @@
 define(["scene", "three", "event", "entity/ship/engine"], function(scene, T, event, Engine){
 	function Ship(){
 		//TODO load from loader
-		var geometry = new THREE.BoxGeometry(1, 1, 1);
+		var geometry = new THREE.BoxGeometry(2, 5, 1);
 		var material = new THREE.MeshPhongMaterial({color: 0x00ff00});
 		this.mesh = new T.Mesh(geometry, material);
 

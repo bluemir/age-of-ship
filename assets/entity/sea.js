@@ -1,4 +1,4 @@
-define(["three", "scene", "event", "entity/zone"], function(T, scene, event, Zone){
+define(["three", "scene", "event", "entity/zone", "textureManager"], function(T, scene, event, Zone, TextureManager){
 	function Sea() {
 		var zone = new Zone();
 
@@ -77,7 +77,33 @@ define(["three", "scene", "event", "entity/zone"], function(T, scene, event, Zon
 
 	function loadArea(zone) {
 		var geometry = new T.PlaneBufferGeometry(50, 50, 32);
-		var material = new T.MeshPhongMaterial({color: 0x0000ff});
+		//var material = new T.MeshPhongMaterial({color: 0x0000ff});
+
+		var texture = TextureManager.get("entity/wave_height.jpg");
+		//TODO Displacement map
+
+		/*
+		var shader = T.normalDisplacementShader;
+		console.log(T.ShaderLib);
+		var uniforms = T.UniformsUtils.clone(shader.uniforms);
+
+		uniforms["enableDisplacement"].value = true;
+		uniforms["enableDiffuse"].value = true;
+		uniforms["tDisplacement"].value = texture;
+		uniforms["tDiffuse"].value = texture;
+		uniforms["uDisplacementScale"].value = 50;
+
+		var parameters = {
+			fragmentShader: shader.fragmentShader,
+			vertextShader: shader.vertextShader,
+			uniforms: uniforms,
+			lights: true,
+			wireframe: false
+		};*/
+
+		//var material = new T.ShaderMaterial(parameters);
+
+		var material = new T.MeshPhongMaterial({color: 0x0000ff, map : texture});
 		var mesh = new T.Mesh(geometry, material);
 
 		mesh.position.set(50*zone.x+25, 50*zone.y+25, 0);

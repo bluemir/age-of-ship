@@ -12,10 +12,40 @@
 			width: 100%;
 			height: 100%;
 		}
+		div.layer {
+			width: 100%;
+			height: 100%;
+			margin : 0;
+			position : absolute;
+			top : 0px;
+			left : 0px;
+		}
+		#dashboard dl {
+			background : white;
+			position : absolute;
+		}
+		.hide {
+			visibility : hidden;
+		}
 	</style>
 	<body>
-		<canvas id="game">
-		</canvas>
+		<div class="layer">
+			<canvas id="game">
+			</canvas>
+		</div>
+		<div class="layer hide" id="dashboard">
+			<dl>
+				<dt>Power</dt>
+				<dd class="power"></dd>
+				<dt>Speed</dt>
+				<dd class="speed"></dd>
+				<dt>Heading</dt>
+				<dd class="heading"></dd>
+			</dl>
+		</div>
+		<div class="layer hide" id="debug">
+		</div>
+
 		<script src="/lib/q/q.js"></script>
 		<script src="/lib/requirejs/require.js"></script>
 		<script src="/assets/require.config.js"></script>

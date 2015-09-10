@@ -1,4 +1,4 @@
-define(["EventEmitter"], function(Emitter){
+define(["EventEmitter", "utils"], function(Emitter, utils){
 	var appEvent = new Emitter();
 
 	var isPointerLock = false;
@@ -20,6 +20,10 @@ define(["EventEmitter"], function(Emitter){
 		isPointerLock = !!document.pointerLockElement;
 		appEvent.emit("window.pointerlock", document.pointerLockElement ? "lock" : "unlock");
 	}
+
+	document.addEventListener("click", function(){
+		utils.pointlock(document.body);
+	});
 
 	return appEvent;
 });
