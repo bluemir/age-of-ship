@@ -8,8 +8,8 @@ define(["utils", "three", "event"], function(utils, T, event){
 	renderer.gammaInput = true;
 	renderer.gammaOutput = true;
 
-	event.on("window.resize", function(){
-		renderer.setSize(window.innerWidth, window.innerHeight);
+	event.on("window.resize", function(size){
+		renderer.setSize(size.width, size.height);
 	});
 
 	return {

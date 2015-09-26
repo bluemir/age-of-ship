@@ -4,7 +4,10 @@ define(["EventEmitter", "utils"], function(Emitter, utils){
 	var isPointerLock = false;
 
 	window.addEventListener("resize", function(e) {
-		appEvent.emit("window.resize", e);
+		appEvent.emit("window.resize", {
+			width : window.innerWidth,
+			height : window.innerHeight
+		});
 	});
 	window.addEventListener("mousemove", function(e) {
 		appEvent.emit("window.mousemove", e);

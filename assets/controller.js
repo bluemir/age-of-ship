@@ -19,6 +19,12 @@ define(["three", "view", "keys", "event"], function(T, view, keys, event){
 			target.turnLeft(dt);
 		}
 	});
+	event.on("window.resize", function (size) {
+		if (!camera)
+			return;
+		camera.aspect = size.width/size.height;
+		camera.updateProjectionMatrix();
+	});
 
 	var look = {
 		tilt : T.Math.degToRad(45),
