@@ -9,6 +9,11 @@ indent_style = tab
 tab_width=4
 trim_trailing_whitespace=true
 
+[*.{glfs,glvs}]
+indent_style = tab
+tab_width=4
+trim_trailing_whitespace=true
+
 [{package.json,bower.json}]
 indent_style = space
 indent_size = 2

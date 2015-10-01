@@ -1,4 +1,12 @@
-define(["three", "scene", "event", "entity/zone", "textureManager"], function(T, scene, event, Zone, TextureManager){
+define([
+	"three",
+	"scene",
+	"event",
+	"entity/zone",
+	"textureManager",
+	"shader/loader"
+],
+function(T, scene, event, Zone, TextureManager, ShaderLoader){
 	function Sea() {
 		var zone = new Zone();
 
@@ -20,6 +28,34 @@ define(["three", "scene", "event", "entity/zone", "textureManager"], function(T,
 			mng.cut(zone);
 		});
 	}
+	var waveMaterial = null;
+	Sea.ready = function(){
+		var defer = Q.defer();
+		waveMaterial = new T.ShaderMaterial({
+			vertexShader : ShaderLoader.get("wave.vs"),
+			fragmentShader : ShaderLoader.get("wave.fs"),
+			uniforms : THREE.UniformsUtils.merge([
+				//THREE.UniformsLib['lights'],
+				{
+					// UniformUtils.merge dosen't work with texture.
+					// See https://github.com/mrdoob/three.js/issues/3393
+					waveNoize : {type : "t", value: null},
+					waveDirection : {type : "v2", value : new T.Vector2(1,0)},
+					wavePeriod : {type : "f", value : 0.5},
+					waveSize : {type : "f", value : 1}
+				}
+			])
+
+		});
+		waveMaterial.uniforms.waveNoize.value = TextureManager.get("entity/wave_texture.jpg");
+
+		defer.resolve();
+		return defer.promise;
+	}
+	event.on("app.frame", function(dt){
+		//TODO update period
+		waveMaterial.uniforms.wavePeriod.value += dt/80000;
+	});
 	function MeshManager(){
 		this.meshs = {}
 	}
@@ -76,39 +112,13 @@ define(["three", "scene", "event", "entity/zone", "textureManager"], function(T,
 
 
 	function loadArea(zone) {
-		var geometry = new T.PlaneBufferGeometry(50, 50, 32);
-		//var material = new T.MeshPhongMaterial({color: 0x0000ff});
-
-		var texture = TextureManager.get("entity/wave_height.jpg");
-		//TODO Displacement map
-
-		/*
-		var shader = T.normalDisplacementShader;
-		console.log(T.ShaderLib);
-		var uniforms = T.UniformsUtils.clone(shader.uniforms);
-
-		uniforms["enableDisplacement"].value = true;
-		uniforms["enableDiffuse"].value = true;
-		uniforms["tDisplacement"].value = texture;
-		uniforms["tDiffuse"].value = texture;
-		uniforms["uDisplacementScale"].value = 50;
-
-		var parameters = {
-			fragmentShader: shader.fragmentShader,
-			vertextShader: shader.vertextShader,
-			uniforms: uniforms,
-			lights: true,
-			wireframe: false
-		};*/
-
-		//var material = new T.ShaderMaterial(parameters);
-
-		var material = new T.MeshPhongMaterial({color: 0x0000ff, map : texture});
-		var mesh = new T.Mesh(geometry, material);
+		var geometry = new T.PlaneBufferGeometry(50, 50, 128, 128);
+		var mesh = new T.Mesh(geometry, waveMaterial);
 
 		mesh.position.set(50*zone.x+25, 50*zone.y+25, 0);
 
 		return mesh;
 	}
+
 	return Sea;
 });

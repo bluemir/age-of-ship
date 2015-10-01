@@ -5,7 +5,7 @@ define(["scene", "three", "event", "entity/ship/engine"], function(scene, T, eve
 		var material = new THREE.MeshPhongMaterial({color: 0x00ff00});
 		this.mesh = new T.Mesh(geometry, material);
 
-		this.mesh.position.z = 1;
+		this.mesh.position.z = 0;
 
 		scene.add(this.mesh);
 

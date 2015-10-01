@@ -4,7 +4,7 @@
 		paths : {
 			three : "/lib/three.js/three",
 			keypress : "/lib/Keypress/keypress",
-			EventEmitter : "/lib/eventemitter2/lib/eventemitter2"
+			EventEmitter : "/lib/eventemitter2/lib/eventemitter2",
 			//text : "/lib/text/text"
 		},
 		shim: {
